@@ -1,36 +1,279 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TechSaloniki Member Management System
 
-## Getting Started
+A full-stack CRUD application for managing members, built with Next.js, NestJS, and MySQL, deployed on Kubernetes (Minikube).
 
-First, run the development server:
+## Table of Contents
+- [Architecture Overview](#architecture-overview)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Prerequisites](#prerequisites)
+- [Local Development](#local-development)
+- [Docker Build Instructions](#docker-build-instructions)
+- [Kubernetes Deployment](#kubernetes-deployment)
+- [Application Configuration](#application-configuration)
+- [API Documentation](#api-documentation)
+- [UI Components](#ui-components)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Architecture Overview
+
+The application follows a microservices architecture with three main components:
+- Frontend (Next.js)
+- Backend API (NestJS)
+- Database (MySQL)
+
+Each component is containerized and deployed as a separate service in Kubernetes.
+
+## Features
+
+### Member Management
+- View list of members with sorting and filtering
+- Add new members
+- Edit existing members
+- Delete members with confirmation
+- Form validation and error handling
+
+### UI Features
+- Responsive design with Tailwind CSS
+- Dark blue color scheme
+- Modal dialogs for forms
+- Interactive data table with sorting
+- Search functionality
+- Loading and error states
+
+### Data Model
+Member properties include:
+- First Name
+- Last Name
+- Sex (Male/Female/Other)
+- Hometown
+- Job Title
+- Cat/Dog Preference (Cat/Dog/Both)
+
+## Tech Stack
+
+### Frontend
+- Next.js 13+
+- TypeScript
+- Tailwind CSS
+- React Hooks
+- Form Validation
+
+### Backend
+- NestJS
+- TypeORM
+- MySQL
+- Class Validator
+- TypeScript
+
+### Infrastructure
+- Docker
+- Kubernetes (Minikube)
+- Node.js 18
+
+## Project Structure
+
+```
+/
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── MemberTable.tsx
+│   │   │   ├── MemberForm.tsx
+│   │   │   └── Modal.tsx
+│   │   ├── types/
+│   │   │   └── member.ts
+│   │   └── app/
+│   │       ├── page.tsx
+│   │       ├── layout.tsx
+│   │       ├── loading.tsx
+│   │       └── error.tsx
+│   ├── Dockerfile
+│   └── next.config.js
+├── backend/
+│   ├── src/
+│   │   ├── entities/
+│   │   ├── dto/
+│   │   ├── controllers/
+│   │   └── services/
+│   ├── Dockerfile
+│   └── package.json
+└── k8s/
+    ├── mysql-secret.yaml
+    ├── mysql-pv.yaml
+    ├── mysql-deployment.yaml
+    ├── backend-configmap.yaml
+    ├── backend-deployment.yaml
+    ├── frontend-configmap.yaml
+    └── frontend-deployment.yaml
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Prerequisites
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Node.js 18+
+- Docker
+- Minikube
+- kubectl
+- MySQL (for local development)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Local Development
 
-## Learn More
+### Frontend Setup
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Backend Setup
+```bash
+cd backend
+npm install
+npm run start:dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Docker Build Instructions
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Backend
+```bash
+cd backend
+eval $(minikube docker-env)
+docker build -t techsaloniki-backend:latest .
+```
 
-## Deploy on Vercel
+### Frontend
+```bash
+cd frontend
+eval $(minikube docker-env)
+docker build -t techsaloniki-frontend:latest .
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Kubernetes Deployment
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 1. Start Minikube
+```bash
+minikube start
+```
+
+### 2. Configure Docker Environment
+```bash
+eval $(minikube docker-env)
+```
+
+### 3. Deploy Components
+```bash
+cd k8s
+
+# Create secrets and configmaps
+kubectl apply -f mysql-secret.yaml
+kubectl apply -f backend-configmap.yaml
+kubectl apply -f frontend-configmap.yaml
+
+# Create storage
+kubectl apply -f mysql-pv.yaml
+
+# Deploy applications
+kubectl apply -f mysql-deployment.yaml
+kubectl apply -f backend-deployment.yaml
+kubectl apply -f frontend-deployment.yaml
+```
+
+### 4. Verify Deployment
+```bash
+kubectl get pods
+kubectl get services
+```
+
+### 5. Access Application
+```bash
+minikube service frontend
+```
+
+## Application Configuration
+
+### Environment Variables
+
+#### Backend
+- DATABASE_HOST
+- DATABASE_PORT
+- DATABASE_NAME
+- DATABASE_USER
+- DATABASE_PASSWORD
+- NODE_ENV
+
+#### Frontend
+- NEXT_PUBLIC_API_URL
+- NODE_ENV
+
+### Kubernetes Resources
+
+#### MySQL
+- PersistentVolume: 1Gi storage
+- Secret for credentials
+- Headless Service
+
+#### Backend
+- 2 replicas
+- ConfigMap for environment variables
+- ClusterIP Service
+
+#### Frontend
+- 2 replicas
+- ConfigMap for environment variables
+- LoadBalancer Service
+
+## API Documentation
+
+### Endpoints
+
+```typescript
+GET    /api/members      // List all members
+POST   /api/members      // Create new member
+PUT    /api/members/:id  // Update member
+DELETE /api/members/:id  // Delete member
+```
+
+### Member DTO
+```typescript
+interface Member {
+  id: string;
+  first_name: string;
+  last_name: string;
+  sex: 'Male' | 'Female' | 'Other';
+  hometown: string;
+  job_title: string;
+  cat_dog_lover: 'Cat' | 'Dog' | 'Both';
+}
+```
+
+## UI Components
+
+### MemberTable
+- Sortable columns
+- Search functionality
+- Action buttons
+- Responsive design
+
+### MemberForm
+- Input validation
+- Error handling
+- Dynamic form states
+- Cancel/Submit actions
+
+### Modal
+- Backdrop with 40% opacity
+- Centered content
+- Close on backdrop click
+- Keyboard accessibility
+
+## Cleanup
+
+To remove all deployed resources:
+```bash
+kubectl delete -f k8s/
+```
+
+To stop Minikube:
+```bash
+minikube stop
+```
