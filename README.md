@@ -290,7 +290,6 @@ Please follow these requirements carefully:
  - Ensure your implementation strictly follows all rules, guidelines, and architectural conventions outlined in /instructions.
    - Design the frontend with component reusability, modular structure, and clean code principles in mind.
    - Include basic but functional UI components for all CRUD operations (e.g., forms, lists, edit views, delete confirmations).
-   - Assume the backend will provide a standard REST API or follow whatever contract is defined under /instructions/api-specs.
    - The frontend component will be created in a directory named "frontend".
  Do not begin backend development until explicitly instructed to do so.
 
@@ -317,8 +316,6 @@ Only implement what is explicitly required by the documentation—do not make as
 
 ### 3. Validate Frontend & Backend Components
 ```
-# Full-Stack Application Readiness and Deployment Checklist
-
 Run a comprehensive check to verify that both the frontend and backend components of the application are properly implemented and ready.
 
 Please ensure the following:
@@ -352,21 +349,10 @@ Run automated tests or static checks if defined, and report any issues or confir
 ```
 ## Deployment Phase Begins
 
-Please prepare everything needed to deploy the full-stack application locally using **Minikube**.
-
 ### Directory Structure & Placement
-- Create all Kubernetes manifest files (e.g., Deployments, Services, ConfigMaps, etc.) under the directory:
-  ```
-  k8s/
-  ```
-- Create the Dockerfile for the frontend under:
-  ```
-  frontend/Dockerfile
-  ```
-- Create the Dockerfile for the backend under:
-  ```
-  backend/Dockerfile
-  ```
+- Create all Kubernetes manifest files (e.g., Deployments, Services, ConfigMaps, etc.) under the directory: k8s/
+- Create the Dockerfile for the frontend under: frontend/Dockerfile
+- Create the Dockerfile for the backend under: backend/Dockerfile
 
 ### Kubernetes Manifests Requirements
 - Define separate **Deployment** resources for both frontend and backend services.
@@ -395,11 +381,7 @@ Ensure you are always working in the project directory.
 
 ## 5. Minikube Validation
 ```
-#### Minikube Configuration Checklist
-
 This checklist is designed to verify that the configuration settings and project structure are ready for successful local deployment using Minikube.
-
----
 
 #### Minikube Environment Readiness
 
@@ -407,15 +389,11 @@ This checklist is designed to verify that the configuration settings and project
 - Manifest files are valid and compatible with Minikube’s capabilities.
 - All resource definitions follow Minikube’s networking and resource constraints.
 
----
-
 #### Dockerfile Compatibility
 
 - `frontend/Dockerfile` and `backend/Dockerfile` are configured for local builds using the Minikube Docker environment (`eval $(minikube docker-env)`).
 - No external image registries are required unless explicitly mentioned.
 - Docker images are correctly tagged and referenced in the `k8s/` manifests.
-
----
 
 #### Kubernetes Manifests Validation
 
@@ -429,8 +407,6 @@ This checklist is designed to verify that the configuration settings and project
   - Has a valid selector matching its Deployment.
   - Exposes frontend via `NodePort` or Ingress for browser access.
 - Resource requests/limits are within Minikube’s available resources.
-
----
 ```
 
 #### Networking and Service Access
