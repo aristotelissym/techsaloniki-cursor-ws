@@ -14,6 +14,8 @@ A full-stack CRUD application for managing members, built with Next.js, NestJS, 
 - [Application Configuration](#application-configuration)
 - [API Documentation](#api-documentation)
 - [UI Components](#ui-components)
+- [Prompts](#prompts)
+- [Resources](#resources)
 
 ## Architecture Overview
 
@@ -277,3 +279,70 @@ To stop Minikube:
 ```bash
 minikube stop
 ```
+
+## Prompts
+### 1. Init Project
+
+> This is a brand-new full-stack web application project. The goal is to create a simple yet complete CRUD (Create, Read, Update, Delete) application.
+> Please follow these requirements carefully:
+>  - Phase 1: Only generate the frontend code for now.
+>  - Use only the technologies, libraries, and patterns defined under the /instructions directory.
+>  - Ensure your implementation strictly follows all rules, guidelines, and architectural conventions outlined in /instructions.
+>    - Design the frontend with component reusability, modular structure, and clean code principles in mind.
+>    - Include basic but functional UI components for all CRUD operations (e.g., forms, lists, edit views, delete confirmations).
+>    - Assume the backend will provide a standard REST API or follow whatever contract is defined under /instructions/api-specs.
+>    - The frontend component will be created in a directory named "frontend".
+>  Do not begin backend development until explicitly instructed to do so.
+>
+>
+>    1. Do not remove these. The files under .cursor/rules are rules you have to follow and files under instructions are files that describe exactly how the application should be setup
+>    1. Before continuing with the backend, all files related to the frontend deployment, move them under a directory frontend/
+>    1. Proceed with the backend component, and build it under the directory backend/  based on the rules and instructions provided in the directories instructions/ and .cursor/rules in the root directory
+>
+>  Proceed to implement the backend component of the application.
+>    - Place all backend code under the backend/ directory.
+>    - Strictly adhere to the architecture, conventions, and coding standards defined in the following locations:
+>      ○ instructions/ — for project-specific implementation guidelines.
+>      ○ .cursor/rules/ — for Cursor-specific rules, patterns, and code quality standards.
+>    - The backend must fully support all CRUD operations required by the frontend and comply with any API contracts or interface specifications previously defined (e.g., in instructions/api-specs or similar files).
+>    - Follow best practices for modularity, scalability, and separation of concerns (e.g., use services, controllers, models appropriately).
+>    - Implement robust error handling, input validation, and any security measures defined in the provided rules.
+>    - Use only the technologies and dependencies permitted by the project instructions.
+>    - Ensure the backend is properly structured to support integration testing and eventual deployment.
+>  Only implement what is explicitly required by the documentation—do not make assumptions beyond the scope defined in instructions/ and .cursor/rules/.
+
+
+1. Do not remove these. The files under .cursor/rules are rules you have to follow and files under instructions are files that describe exactly how the application should be setup.
+
+1. Before continuing with the backend, all files related to the frontend deployment, move them under a directory frontend/.
+
+1. Proceed with the backend component, and build it under the directory backend/  based on the rules and instructions provided in the directories instructions/ and .cursor/rules in the root directory.
+
+1. Run first a check that both components are ready.
+
+1. Output what are the .env needs, and setup the rest.
+
+1. We are done with the development of the application. Now, I want these to be deployed in Minikube locally. Create all the manifest files for minikube (deployment, services etc.). Build everything under the directory k8s/.
+
+1. Create the Dockerfiles for frontend in directory frontend/ and the backend in directory backend/. For any need, look on the rules and instructions provided in the directories instructions/ and .cursor/rules in the root directory.
+
+1. Create a more thorough documentation based on the details of the project. Mention the rules and the instructions.
+
+
+## Resources
+
+- https://ademyuce.tr/en/vibe-coding-analysis-of-a-post-modernist-programming-paradigm/
+- https://arstechnica.com/ai/2025/03/is-vibe-coding-with-ai-gnarly-or-reckless-maybe-some-of-both/
+- https://forum.cursor.com/
+- https://docs.cursor.com/
+- https://www.reddit.com/r/ChatGPTCoding/comments/1jfacpu/if_you_are_vibe_coding_read_this_it_might_save_you/
+- https://www.reddit.com/r/ChatGPTCoding/comments/1iueymf/hot_take_vibe_coding_is_not_the_future/
+- https://medium.com/@bobm67/prompt-coding-vs-vibe-coding-navigating-the-future-of-ai-assisted-development-039d6946308c
+- https://www.reddit.com/r/vibecoding/comments/1kis9yj/the_ultimate_vibe_coding_guide/
+- https://www.reddit.com/r/vibecoding/comments/1kk1gul/10_brutal_lessons_from_6_months_of_vibe_coding/
+- https://www.reddit.com/r/ProgrammerHumor/comments/1jfr2ey/thiscaptionwasvibecoded/
+- https://dev.to/wasp/a-structured-workflow-for-vibe-coding-full-stack-apps-352l
+- https://madhukarkumar.medium.com/a-comprehensive-guide-to-vibe-coding-tools-2bd35e2d7b4f
+- https://github.com/filipecalegario/awesome-vibe-coding
+- https://github.com/TechNomadCode/AI-Product-Development-Toolkit?tab=readme-ov-file
+- https://www.perforce.com/blog/alm/how-write-product-requirements-document-prd#prd-template-a-product-requirements-document-example
