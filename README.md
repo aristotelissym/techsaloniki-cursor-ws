@@ -281,50 +281,188 @@ minikube stop
 ```
 
 ## Prompts
-### 1. Init Project
-
-> This is a brand-new full-stack web application project. The goal is to create a simple yet complete CRUD (Create, Read, Update, Delete) application.
-> Please follow these requirements carefully:
->  - Phase 1: Only generate the frontend code for now.
->  - Use only the technologies, libraries, and patterns defined under the /instructions directory.
->  - Ensure your implementation strictly follows all rules, guidelines, and architectural conventions outlined in /instructions.
->    - Design the frontend with component reusability, modular structure, and clean code principles in mind.
->    - Include basic but functional UI components for all CRUD operations (e.g., forms, lists, edit views, delete confirmations).
->    - Assume the backend will provide a standard REST API or follow whatever contract is defined under /instructions/api-specs.
->    - The frontend component will be created in a directory named "frontend".
->  Do not begin backend development until explicitly instructed to do so.
->
->
->    1. Do not remove these. The files under .cursor/rules are rules you have to follow and files under instructions are files that describe exactly how the application should be setup
->    1. Before continuing with the backend, all files related to the frontend deployment, move them under a directory frontend/
->    1. Proceed with the backend component, and build it under the directory backend/  based on the rules and instructions provided in the directories instructions/ and .cursor/rules in the root directory
->
->  Proceed to implement the backend component of the application.
->    - Place all backend code under the backend/ directory.
->    - Strictly adhere to the architecture, conventions, and coding standards defined in the following locations:
->      ○ instructions/ — for project-specific implementation guidelines.
->      ○ .cursor/rules/ — for Cursor-specific rules, patterns, and code quality standards.
->    - The backend must fully support all CRUD operations required by the frontend and comply with any API contracts or interface specifications previously defined (e.g., in instructions/api-specs or similar files).
->    - Follow best practices for modularity, scalability, and separation of concerns (e.g., use services, controllers, models appropriately).
->    - Implement robust error handling, input validation, and any security measures defined in the provided rules.
->    - Use only the technologies and dependencies permitted by the project instructions.
->    - Ensure the backend is properly structured to support integration testing and eventual deployment.
->  Only implement what is explicitly required by the documentation—do not make assumptions beyond the scope defined in instructions/ and .cursor/rules/.
+### 1. Build Frontend
+```
+This is a brand-new full-stack web application project. The goal is to create a simple yet complete CRUD (Create, Read, Update, Delete) application.
+Please follow these requirements carefully:
+ - Phase 1: Only generate the frontend code for now.
+ - Use only the technologies, libraries, and patterns defined under the /instructions directory.
+ - Ensure your implementation strictly follows all rules, guidelines, and architectural conventions outlined in /instructions.
+   - Design the frontend with component reusability, modular structure, and clean code principles in mind.
+   - Include basic but functional UI components for all CRUD operations (e.g., forms, lists, edit views, delete confirmations).
+   - Assume the backend will provide a standard REST API or follow whatever contract is defined under /instructions/api-specs.
+   - The frontend component will be created in a directory named "frontend".
+ Do not begin backend development until explicitly instructed to do so.
 
 
-1. Do not remove these. The files under .cursor/rules are rules you have to follow and files under instructions are files that describe exactly how the application should be setup.
+   1. Do not remove these. The files under .cursor/rules are rules you have to follow and files under instructions are files that describe exactly how the application should be setup
+   1. Before continuing with the backend, all files related to the frontend deployment, move them under a directory frontend/
+   1. Proceed with the backend component, and build it under the directory backend/  based on the rules and instructions provided in the directories instructions/ and .cursor/rules in the root directory
+```
 
-1. Before continuing with the backend, all files related to the frontend deployment, move them under a directory frontend/.
+### 2. Build Backend
+```
+Proceed to implement the backend component of the application.
+  - Place all backend code under the backend/ directory.
+  - Strictly adhere to the architecture, conventions, and coding standards defined in the following locations:
+    ○ instructions/ — for project-specific implementation guidelines.
+    ○ .cursor/rules/ — for Cursor-specific rules, patterns, and code quality standards.
+  - The backend must fully support all CRUD operations required by the frontend and comply with any API contracts or interface specifications previously defined (e.g., in instructions/api-specs or similar files).
+  - Follow best practices for modularity, scalability, and separation of concerns (e.g., use services, controllers, models appropriately).
+  - Implement robust error handling, input validation, and any security measures defined in the provided rules.
+  - Use only the technologies and dependencies permitted by the project instructions.
+  - Ensure the backend is properly structured to support integration testing and eventual deployment.
+Only implement what is explicitly required by the documentation—do not make assumptions beyond the scope defined in instructions/ and .cursor/rules/.
+```
 
-1. Proceed with the backend component, and build it under the directory backend/  based on the rules and instructions provided in the directories instructions/ and .cursor/rules in the root directory.
+### 3. Validate Frontend & Backend Components
+```
+# Full-Stack Application Readiness and Deployment Checklist
 
-1. Run first a check that both components are ready.
+Run a comprehensive check to verify that both the frontend and backend components of the application are properly implemented and ready.
 
-1. Output what are the .env needs, and setup the rest.
+Please ensure the following:
 
-1. We are done with the development of the application. Now, I want these to be deployed in Minikube locally. Create all the manifest files for minikube (deployment, services etc.). Build everything under the directory k8s/.
+## General
+- The project structure aligns with the conventions and constraints defined in the `instructions/` and `.cursor/rules/` directories.
+- All required files are present and placed in their correct directories (`frontend/`, `backend/`).
 
-1. Create the Dockerfiles for frontend in directory frontend/ and the backend in directory backend/. For any need, look on the rules and instructions provided in the directories instructions/ and .cursor/rules in the root directory.
+## Frontend
+- All CRUD functionalities are implemented and working as intended.
+- The UI matches the design and usability standards outlined in `instructions/`.
+- Component structure follows best practices (modularity, reusability, state management).
+- No unresolved TODOs, placeholders, or missing components.
+
+## Backend
+- All API endpoints required by the frontend are implemented and functional.
+- Business logic is properly separated (e.g., via services, controllers, models).
+- Follows all conventions and rules in `.cursor/rules/` and `instructions/`.
+- Includes error handling, input validation, and conforms to security guidelines.
+- Database schema and migration files (if applicable) are correctly defined and operational.
+
+## Integration
+- The frontend correctly communicates with the backend (e.g., via REST or as defined in API contracts).
+- There are no breaking errors in the integration between the two components.
+- Environment variables and configuration files are correctly referenced and loaded in both components.
+
+Run automated tests or static checks if defined, and report any issues or confirmations of readiness.
+```
+
+### 4. K8s Setup
+```
+## Deployment Phase Begins
+
+Please prepare everything needed to deploy the full-stack application locally using **Minikube**.
+
+### Directory Structure & Placement
+- Create all Kubernetes manifest files (e.g., Deployments, Services, ConfigMaps, etc.) under the directory:
+  ```
+  k8s/
+  ```
+- Create the Dockerfile for the frontend under:
+  ```
+  frontend/Dockerfile
+  ```
+- Create the Dockerfile for the backend under:
+  ```
+  backend/Dockerfile
+  ```
+
+### Kubernetes Manifests Requirements
+- Define separate **Deployment** resources for both frontend and backend services.
+- Define **Service** resources to expose both components internally in the Minikube cluster.
+  - Use a **NodePort** or **Ingress** to expose the frontend for local browser access via Minikube IP.
+- Ensure proper labels, selectors, and environment variables are configured as required.
+- Include any required **ConfigMaps**, **Secrets**, or **Volumes** if specified in the `/instructions` or `.cursor/rules`.
+
+### Docker Configuration
+- Write clean and efficient `Dockerfile`s for both components that:
+  - Match the structure and tech stack of each component.
+  - Follow any specified build optimizations or multi-stage builds (if required).
+  - Reference `.env` or config files only if permitted in `instructions/`.
+
+### Rules and Conventions
+- At all times, follow the guidelines, naming conventions, and patterns described in:
+  - `instructions/` — for project-specific behavior and architecture.
+  - `.cursor/rules/` — for enforced coding, deployment, and tooling standards.
+
+Ensure all manifests and Dockerfiles are **complete, buildable, and Minikube-compatible**.
+
+Do **not** proceed with Helm or cloud deployment unless explicitly requested.
+
+Ensure you are always working in the project directory.
+```
+
+## 5. Minikube Validation
+```
+#### Minikube Configuration Checklist
+
+This checklist is designed to verify that the configuration settings and project structure are ready for successful local deployment using Minikube.
+
+---
+
+#### Minikube Environment Readiness
+
+- All Kubernetes manifest files are located under the `k8s/` directory.
+- Manifest files are valid and compatible with Minikube’s capabilities.
+- All resource definitions follow Minikube’s networking and resource constraints.
+
+---
+
+#### Dockerfile Compatibility
+
+- `frontend/Dockerfile` and `backend/Dockerfile` are configured for local builds using the Minikube Docker environment (`eval $(minikube docker-env)`).
+- No external image registries are required unless explicitly mentioned.
+- Docker images are correctly tagged and referenced in the `k8s/` manifests.
+
+---
+
+#### Kubernetes Manifests Validation
+
+- All YAML files in `k8s/` are syntactically valid.
+- Each Deployment includes:
+  - `image` field referencing a valid Docker image.
+  - Exposed `ports`.
+  - `env` variables if needed.
+  - Volume mounts (if required).
+- Each Service:
+  - Has a valid selector matching its Deployment.
+  - Exposes frontend via `NodePort` or Ingress for browser access.
+- Resource requests/limits are within Minikube’s available resources.
+
+---
+```
+
+#### Networking and Service Access
+
+- Services can communicate internally via Kubernetes service names.
+- Environment variables or config maps used for service discovery are correctly pointing to in-cluster service endpoints.
+
+---
+
+#### Rules & Standards Compliance
+
+- All configurations and code follow the standards defined in:
+  - `instructions/`
+  - `.cursor/rules/`
+- Naming conventions, structure, and security rules are respected across:
+  - Dockerfiles
+  - Kubernetes manifests
+  - Environment configuration
+
+---
+
+#### Output Expectation
+
+Generate a final report containing:
+- Confirmation if everything is correctly set up.
+- A list of any misconfigurations or issues.
+- Recommendations for adjustments to ensure full Minikube compatibility.
+
+---
+
+Let me know if additional checks (e.g. health probes, test pods, CI integration) should be included.
+
 
 1. Create a more thorough documentation based on the details of the project. Mention the rules and the instructions.
 
